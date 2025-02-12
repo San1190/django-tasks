@@ -16,7 +16,6 @@ def toggle_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.completed = not task.completed
     task.save()
-    task = get_object_or_404(Task, id=task_id)
     return render(request, "tasks/partials/task_item.html", {"task": task})
 
 
@@ -32,4 +31,5 @@ def add_task(request):
         if title:
             Task.objects.create(title=title)
         # Return an empty response with the HX-Trigger header to refresh the task list
-    return HttpResponse("", headers={"HX-Trigger": "taskAdded"})
+    tasks = Task.objects.all()
+    return render(request, "tasks/partials/task_list.html", {"tasks": tasks})

@@ -3,21 +3,20 @@
         {{ task.title }}
     </span>
     <div class="flex gap-2">
-        <button 
-            hx-get="{% url 'toggle_task' task.id %}" 
-            hx-target="#task-{{ task.id }}"
-            hx-swap="outerHTML"
-            class="px-3 py-1 bg-blue-500 text-white rounded-md">
-            {% if task.completed %} ❌ {% else %} ✅ {% endif %}
-        </button>
-        <form hx-delete="{% url 'delete_task' task.id %}" 
-            hx-target="#task-{{ task.id }}"
-            hx-swap="outerHTML">
+    {% if task.completed %}
+        <form hx-get="{% url 'toggle_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">
             {% csrf_token %}
-            <button
-            class="px-3 py-1 bg-red-500 text-white rounded-md">
-            🗑️
-            </button>
+                <button class="px-3 py-1 bg-blue-500 text-white rounded-md">❌</button>
+        </form>
+    {% else %}
+        <form hx-get="{% url 'toggle_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">
+            {% csrf_token %}
+                <button class="px-3 py-1 bg-blue-500 text-white rounded-md">✅</button>
+        </form>
+    {% endif %}
+        <form hx-delete="{% url 'delete_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">
+            {% csrf_token %}
+            <button class="px-3 py-1 bg-red-500 text-white rounded-md">🗑️</button>
         </form>
     </div>
 </li>
