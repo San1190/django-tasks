@@ -1,4 +1,4 @@
-<li class="flex justify-between items-center p-2 border-b" id="task-{{ task.id }}">
+<li class="flex justify-between items-center p-2 border-b bg-blue-300 rounded mx-3 my-3" id="task-{{ task.id }}">
     <span class="{% if task.completed %}line-through text-gray-500{% endif %}">
         {{ task.title }}
     </span>
@@ -14,9 +14,11 @@
                 <button class="px-3 py-1 bg-blue-500 text-white rounded-md">✅</button>
         </form>
     {% endif %}
-        <form hx-delete="{% url 'delete_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">
+        <form hx-post="{% url 'delete_task' task.id %}" hx-target="#task-{{ task.id }}" hx-swap="outerHTML">
             {% csrf_token %}
+            <input type="hidden" name="_method" value="DELETE">
             <button class="px-3 py-1 bg-red-500 text-white rounded-md">🗑️</button>
         </form>
+    
     </div>
 </li>

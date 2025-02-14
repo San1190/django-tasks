@@ -7,15 +7,15 @@
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     <title>Task List</title>
 </head>
-<body class="p-10 bg-gray-100">
-    <div class="max-w-lg mx-auto bg-white p-5 shadow-md rounded-md">
+<body class="p-10 bg-gray-700">
+    <div class="max-w-lg mx-auto bg-blue-100 p-5 shadow-md rounded-md">
         <h1 class="text-2xl font-bold mb-4">Tasks</h1>
         
         <!-- Formulario para agregar tarea -->
         <form hx-post="{% url 'add_task' %}" hx-target="#task-list" hx-swap="innerHTML" class="mb-4 flex gap-2">
             {% csrf_token %}
             <input type="text" name="title" placeholder="Nueva tarea" required
-                   class="border rounded-md p-2 flex-grow">
+                   class="border rounded-md p-2 flex-grow bg-blue-200">
             <button type="submit" class="px-3 py-2 bg-green-500 text-white rounded-md">Agregar</button>
         </form>
 
